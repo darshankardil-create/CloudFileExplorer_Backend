@@ -6,7 +6,7 @@ export default function socketconnection(instance) {
   try {
     const io = new Server(instance, {
       cors: {
-        origins: ["*"],
+        origins: ["https://cloudfileexplorerfrontend.vercel.app"],
       },
     });
 

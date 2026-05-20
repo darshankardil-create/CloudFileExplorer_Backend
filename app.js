@@ -16,7 +16,7 @@ const app = express();
 
 app.use(
   cors({
-    origins: ["*"],
+    origins: ["https://cloudfileexplorerfrontend.vercel.app"],
   }),
 );
 
