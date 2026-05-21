@@ -22,10 +22,10 @@ app.use(
 
 app.use(express.json());
 
-// app.use("/api", (req, res, next) => {
-//   console.log("got req:", req.method,"url:",req.originalUrl);
-//   next();
-// });
+app.use("/api", (req, res, next) => {
+  console.log("got req:", req.method,"url:",req.originalUrl);
+  next();
+});
 
 app.use("/api", router);
 
