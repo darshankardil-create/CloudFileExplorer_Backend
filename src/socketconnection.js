@@ -18,7 +18,7 @@ export default function socketconnection(instance) {
           const client = await new InferenceClient(process.env.HF_TOKEN);
 
           const chatCompletion = await client.chatCompletion({
-            model: "Qwen/Qwen3.6-27B:featherless-ai",
+            model: "Qwen/Qwen3.6-27B",
             messages: [
               {
                 role: "system",
