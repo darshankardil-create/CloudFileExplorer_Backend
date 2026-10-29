@@ -6,27 +6,21 @@ export default function socketconnection(instance) {
   try {
     const io = new Server(instance, {
       cors: {
-        origins: ["https://cloudfileexplorerfrontend.vercel.app"],
+        origin: ["https://cloudfileexplorerfrontend.vercel.app"], // "origin", not "origins"
       },
     });
+
+    // Create the client once, not on every message
+    const client = new InferenceClient(process.env.HF_TOKEN);
 
     io.on("connection", (user) => {
       console.log(user.id);
 
       user.on("send", async (data) => {
         try {
-          const client = await new InferenceClient(process.env.HF_TOKEN);
-
           const chatCompletion = await client.chatCompletion({
             model: "Qwen/Qwen3.6-27B:ovhcloud",
-            messages: [
-              {
-                role: "system",
-                content: prompt,
-              },
-
-              ...data.dataforai,
-            ],
+            messages: [{ role: "system", content: prompt }, ...data.dataforai],
           });
 
           user.emit("success", {
@@ -34,7 +28,6 @@ export default function socketconnection(instance) {
           });
         } catch (error) {
           console.error(error);
-
           user.emit("errorinai", { message: error.message });
         }
       });
